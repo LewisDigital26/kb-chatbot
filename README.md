@@ -14,6 +14,8 @@ The documents in `docs/` describe **Bloom & Blade Hair Studio**, a fictional hai
 - **Embeds on any website** with one line: `<script src="https://your-server/widget.js"></script>`
 - **Admin page** where the owner can edit documents (the chatbot relearns instantly) and see **which questions it couldn't answer**, which shows exactly what information is missing
 
+![Admin page showing stats and the questions the chatbot couldn't answer](screenshots/admin-page.jpg)
+
 ## How it works (RAG: retrieval-augmented generation)
 
 ```mermaid
