@@ -1,6 +1,6 @@
 # Chatbot evaluation: realistic set
 
-Run on 09 October 2026 15:03 with 16 questions.
+Run on 09 October 2026 15:32 with 16 questions.
 
 | Measure | Score |
 | --- | --- |
@@ -12,4 +12,4 @@ Run on 09 October 2026 15:03 with 16 questions.
 ## Failures
 
 - **can i bring my 2 kids along while i get my hair done**  
-  Answer: Yes, you can bring your children, but please note that under-16s must be accompanied by a parent or guardian for the whole appointment.
+  Answer: Under-16s must be accompanied by a parent or guardian for the whole appointment. Please note that we do not colour or chemically treat the hair of anyone under 16.

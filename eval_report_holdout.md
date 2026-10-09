@@ -1,6 +1,6 @@
 # Chatbot evaluation: holdout set
 
-Run on 09 October 2026 14:57 with 12 questions.
+Run on 09 October 2026 15:31 with 12 questions.
 
 | Measure | Score |
 | --- | --- |
