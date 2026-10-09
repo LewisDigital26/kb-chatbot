@@ -1,12 +1,12 @@
 """
-ingest.py - Step 2: turns the business documents into a searchable knowledge base.
+ingest.py - turns the business documents into a searchable knowledge base.
 
 1. Reads every .md and .txt file in docs/
 2. Splits each one into small chunks (one section or one FAQ answer each)
 3. Turns each chunk into an embedding with Gemini
 4. Saves the chunks and embeddings to vectordb/index.json
 
-Run it again whenever the documents change.
+Run it after changing the documents by hand. The admin page runs it automatically.
 """
 import json
 import re

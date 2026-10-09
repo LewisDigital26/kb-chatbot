@@ -1,5 +1,5 @@
 """
-answer.py - Step 3: answers a customer's question using ONLY the business's documents.
+answer.py - answers a customer's question using ONLY the business's documents.
 
 1. search.py finds the most relevant chunks
 2. Those chunks are given to the AI as numbered sources

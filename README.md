@@ -64,16 +64,14 @@ The realistic set uses typos, text-speak and two-part questions ("hiya how much 
 - Runs locally on the free Gemini tier. A real deployment would need hosting and a paid tier.
 
 ## Run it yourself
-1. Install Python 3.10+, then in this folder:
-   ```
-   python -m venv venv
-   venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-2. Copy `.env.example` to `.env` and add a free Gemini key from [Google AI Studio](https://aistudio.google.com) and an admin password.
-3. Build the knowledge base: `python ingest.py`
-4. Start the site: `python server.py`, then open http://localhost:8000 (admin page: http://localhost:8000/admin)
-5. Run the tests: `python evaluate.py dev`, `holdout` or `realistic`
+1. Install Python 3.10+.
+2. Copy `.env.example` to `.env` and add a free Gemini key from [Google AI Studio](https://aistudio.google.com) and your own admin password.
+3. On Windows, double-click:
+   - `setup.bat` once, to install packages and build the knowledge base
+   - `run_website.bat`, then open http://localhost:8000 (admin page: http://localhost:8000/admin)
+   - `run_tests.bat` to run all three test sets
+
+   On Mac or Linux, the same steps are `python -m venv venv`, `pip install -r requirements.txt`, `python ingest.py`, `python server.py` and `python evaluate.py dev` (or `holdout` / `realistic`).
 
 ## Project structure
 | File | What it does |
@@ -87,6 +85,7 @@ The realistic set uses typos, text-speak and two-part questions ("hiya how much 
 | `static/widget.js` | The embeddable chat widget |
 | `static/admin.html` | The admin page |
 | `evaluate.py` | The three test sets and scoring |
+| `setup.bat`, `run_website.bat`, `run_tests.bat` | One-click launchers for Windows |
 
 ---
 

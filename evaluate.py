@@ -1,5 +1,5 @@
 """
-evaluate.py - Step 6: measures how accurate the chatbot is.
+evaluate.py - measures how accurate the chatbot is.
 
 For every test question it checks three things:
   1. Search:   did search find the right document? (in the top 4 results)
