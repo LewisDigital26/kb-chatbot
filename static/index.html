@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom & Blade Hair Studio (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: "Inter", system-ui, sans-serif; color: #2a1a29; background: #fffaf7; }
+  .demo { background: #2a1a29; color: #f3dfe6; text-align: center; font-size: 13px; padding: 8px 16px; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 22px 6vw; }
+  .logo { font-family: "Fraunces", serif; font-size: 24px; font-weight: 700; color: #3b1f3a; }
+  .logo span { color: #c75b7a; }
+  nav a { margin-left: 26px; color: #3b1f3a; text-decoration: none; font-weight: 500; font-size: 15px; }
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; padding: 56px 6vw 72px; }
+  h1 { font-family: "Fraunces", serif; font-size: clamp(38px, 5vw, 60px); line-height: 1.05; color: #3b1f3a; }
+  h1 em { color: #c75b7a; font-style: normal; }
+  .hero p { margin: 20px 0 30px; font-size: 18px; line-height: 1.6; color: #5d4859; max-width: 34em; }
+  .btn { display: inline-block; background: #3b1f3a; color: #fff; padding: 14px 26px; border-radius: 30px; text-decoration: none; font-weight: 600; }
+  .art { aspect-ratio: 4/5; max-height: 62vh; justify-self: center; width: 100%; max-width: 440px; border-radius: 200px 200px 24px 24px; background:
+         radial-gradient(circle at 30% 30%, #f6c9d6 0, transparent 45%),
+         radial-gradient(circle at 70% 65%, #c75b7a 0, transparent 50%),
+         linear-gradient(160deg, #fbe4ea, #e7b3c4 60%, #9c3f63); box-shadow: 0 30px 60px rgba(59,31,58,.18); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 6vw 80px; }
+  .card { background: #fff; border: 1px solid #f0dfe4; border-radius: 18px; padding: 24px; }
+  .card h3 { font-family: "Fraunces", serif; font-size: 21px; color: #3b1f3a; margin-bottom: 8px; }
+  .card p { color: #5d4859; line-height: 1.55; font-size: 15px; }
+  footer { border-top: 1px solid #f0dfe4; padding: 26px 6vw; color: #8a6b80; font-size: 14px; }
+  @media (max-width: 760px) {
+    nav { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 24px; }
+    .art { max-height: 320px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="demo">Demo site for a portfolio project: Bloom & Blade is a fictional business.</div>
+  <header>
+    <div class="logo">Bloom <span>&amp;</span> Blade</div>
+    <nav><a href="#">Services</a><a href="#">Prices</a><a href="#">Visit us</a></nav>
+  </header>
+  <section class="hero">
+    <div>
+      <h1>Hair that feels <em>like you</em>, only better.</h1>
+      <p>Cuts, colour and curl specialists in Coventry city centre. Got a question about prices, patch tests or bookings? Ask our assistant in the corner. It answers instantly from our salon info.</p>
+      <a class="btn" href="#">Book an appointment</a>
+    </div>
+    <div class="art" role="img" aria-label="Decorative pink gradient"></div>
+  </section>
+  <section class="cards">
+    <div class="card"><h3>Cuts & styling</h3><p>From a quick men's cut to wedding styling, finished with a blow-dry.</p></div>
+    <div class="card"><h3>Colour</h3><p>Balayage, highlights and colour correction, with a free patch test first.</p></div>
+    <div class="card"><h3>Curly & afro hair</h3><p>Specialist stylists for curly, coily and afro hair. Just mention it when booking.</p></div>
+  </section>
+  <footer>Bloom & Blade Hair Studio (fictional) · Coventry · Closed Mondays</footer>
+
+  <script src="/widget.js" data-name="Bloom & Blade"></script>
+</body>
+</html>
