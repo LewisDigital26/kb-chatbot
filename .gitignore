@@ -1,0 +1,13 @@
+# Secrets
+.env
+
+# Local data
+vectordb/
+chroma/
+
+# Python
+venv/
+__pycache__/
+
+# Logs
+setup_log.txt
