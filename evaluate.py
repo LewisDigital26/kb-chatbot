@@ -6,11 +6,12 @@ For every test question it checks three things:
   2. Handoff:  did it answer when it should, and pass to a person when it should?
   3. Facts:    does the answer contain the key facts? (e.g. "£140" and "3.5 hours")
 
-Two test sets:
-  dev      - used while improving the chatbot
-  holdout  - fresh questions, only for the final honest score. Don't tune on these.
+Three test sets:
+  dev        - used while improving the chatbot
+  holdout    - fresh questions, only for the final honest score. Don't tune on these.
+  realistic  - messy, real-customer style: typos, text-speak, two questions in one
 
-Run:  python evaluate.py dev     or     python evaluate.py holdout
+Run:  python evaluate.py dev   |   python evaluate.py holdout   |   python evaluate.py realistic
 Results are saved to eval_report_<set>.md
 """
 import sys
@@ -21,6 +22,7 @@ from pathlib import Path
 from answer import Assistant
 
 # (question, should it answer?, expected document, facts that must appear)
+# "should it answer?" can be None when either answering or handing over is acceptable.
 # Each fact is a list of alternatives: any one of them counts, e.g. ["8pm", "20:00"].
 DEV = [
     ("Are you open on Mondays?", True, "04", [["closed"]]),
@@ -78,6 +80,27 @@ HOLDOUT = [
 ]
 
 
+REALISTIC = [
+    ("hiya how much 4 highlights n a cut", True, "01", [["85", "110"], ["45"]]),
+    ("can i come in tmrw at 10", None, "02", [["online", "phone", "call", "024"]]),
+    ("my mums 70 does she get money off colour", True, "01", [["cuts"]]),
+    ("r u open sunday", True, "04", [["10"], ["3pm", "3 pm", "15:00", "3:00"]]),
+    ("whats ur cancelation policy", True, "02", [["24"]]),
+    ("how much to get my hair done for my wedding", True, "01", [["65"]]),
+    ("do i have to do that allergy test thing every time", True, "03", [["6 months", "six months"]]),
+    ("is there anywhere to park", True, "04", [["car park"]]),
+    ("can i pay with apple pay", True, "03", [["apple pay"]]),
+    ("my 10yo son needs a trim how much", True, "01", [["15"]]),
+    ("booked for 2pm today but cant make it, its 11am now, will i get charged??", True, "02", [["50%", "deposit"]]),
+    ("how much is keratin and do i need to pay anything upfront", True, "01", [["150"], ["20", "deposit"]]),
+    ("whats the wifi password", True, "03", [["reception"]]),
+    # The documents don't cover this, so it should hand over rather than guess "yes".
+    ("can i bring my 2 kids along while i get my hair done", False, None, []),
+    ("do yall do braids", False, None, []),
+    ("can u recommend a good nail place nearby", False, None, []),
+]
+
+
 def check_facts(answer: str, facts: list[list[str]]) -> list[str]:
     """Return the facts that are missing from the answer."""
     text = answer.lower()
@@ -86,7 +109,7 @@ def check_facts(answer: str, facts: list[list[str]]) -> list[str]:
 
 def main():
     name = sys.argv[1] if len(sys.argv) > 1 else "dev"
-    tests = HOLDOUT if name == "holdout" else DEV
+    tests = {"holdout": HOLDOUT, "realistic": REALISTIC}.get(name, DEV)
     assistant = Assistant()
     rows = []
     print(f"Running the {name} set: {len(tests)} questions (about {len(tests) * 5 // 60 + 1} minutes)...\n")
@@ -96,9 +119,12 @@ def main():
             found = assistant.kb.search(question, top_k=4)
             search_ok = None if doc is None else any(c["source"].startswith(doc) for c in found)
             result = assistant.ask(question)
-            handoff_ok = result["answered"] == should_answer
-            missing = check_facts(result["answer"], facts) if should_answer and result["answered"] else []
-            facts_ok = None if not should_answer else (result["answered"] and not missing)
+            handoff_ok = should_answer is None or result["answered"] == should_answer
+            missing = check_facts(result["answer"], facts) if facts and (should_answer is None or result["answered"]) else []
+            if should_answer is None:
+                facts_ok = None if not facts else not missing
+            else:
+                facts_ok = None if not should_answer else (result["answered"] and not missing)
             answer = result["answer"]
         except Exception as e:
             search_ok, handoff_ok, facts_ok, missing, answer = False, False, False, [], f"ERROR: {e}"
@@ -108,6 +134,8 @@ def main():
         mark = "PASS" if passed else "FAIL"
         extra = f"  (missing: {', '.join(missing)})" if missing else ("" if handoff_ok else "  (wrong answer/handoff)")
         print(f"{i:2}. {mark}  {question}{extra}")
+        if name == "realistic":
+            print(f"      -> {answer}")
         time.sleep(3)  # stay inside the free AI limits
 
     def score(key):
